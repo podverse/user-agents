@@ -15,13 +15,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }} 
 
     - name: "Automated Version Bump"
       uses: "phips28/gh-action-bump-version@master"
       with:
         tag-prefix: ''
       env:
-        GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
