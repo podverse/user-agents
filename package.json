@@ -20,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/opawg/user-agents/issues"
   },
-  "homepage": "https://podnews.net/article/podcast-app-useragents",
-  "pre-commit": [
-    "yaml"
-  ]
+  "homepage": "https://podnews.net/article/podcast-app-useragents"
 }
