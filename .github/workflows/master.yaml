@@ -32,15 +32,15 @@ jobs:
     - run: npm install
     - run: npm run combine-jsons
 
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
     - name: Validate JSON
       uses: docker://orrosenblatt/validate-json-action:latest
       env:
         INPUT_SCHEMA: /src/schema.json
-        INPUT_JSONS: /dist/user-agents.json,/dist/archive/${{ matrix.node-version }}/user-agents.json
-
-    - name: Read node from package.json
-      uses: culshaw/read-package-node-version-actions@v1
-      id: package-node-version
+        INPUT_JSONS: /dist/user-agents.json,/dist/archive/${{ steps.package-version.outputs.current-version }}/user-agents.json
 
     - name: Commit and push dist changes
       run: |
