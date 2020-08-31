@@ -21,7 +21,7 @@ jobs:
       with:
         tag-prefix: ''
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_TOKEN }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -29,6 +29,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run combined-jsons
+
+    - name: Validate JSON
+      uses: docker://orrosenblatt/validate-json-action:latest
+      env:
+        INPUT_SCHEMA: /src/schema.json
+        INPUT_JSONS: /dist/user-agents.json,/dist/archive/${{ matrix.node-version }}/user-agents.json
 
     - name: Read node from package.json
       uses: culshaw/read-package-node-version-actions@v1
