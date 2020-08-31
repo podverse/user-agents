@@ -1,0 +1,42 @@
+name: master-branch
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "Automated Version Bump"
+      uses: "phips28/gh-action-bump-version@master"
+      with:
+        tag-prefix: ''
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run combined-jsons
+
+    - name: Read node from package.json
+      uses: culshaw/read-package-node-version-actions@v1
+      id: package-node-version
+
+    - name: Commit and push dist changes
+      run: |
+        git config --global user.name ${{ secrets.GITHUB_USER_NAME }}
+        git config --global user.email ${{ secrets.GITHUB_USER_EMAIL }}
+        git commit -m "Release version ${{ matrix.node-version }}"
+        git push
