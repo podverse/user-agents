@@ -44,8 +44,8 @@ jobs:
 
     - name: Commit and push dist changes
       run: |
-        echo pwd
-        sudo chown -R $USER:$USER /home/github/actions-runner/_work/user-agents
+        pwd
+        sudo chown -R $USER:$USER /home/runner/work/user-agents/user-agents
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add ./dist
