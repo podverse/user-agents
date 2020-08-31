@@ -1,6 +1,6 @@
 const { existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, writeFileSync } = require('fs')
 const glob = require('glob').sync
-const { join } = require('path')
+const { join, resolve } = require('path')
 const YAML = require('json2yaml')
 const { version } = require('../package.json');
 
@@ -18,19 +18,19 @@ const combineJSONs = () => {
   const archiveDirectoryPath = `${distPath}/archive/${version}`
 
   if (!existsSync(archiveDirectoryPath)) {
-    mkdirSync(archiveDirectoryPath);
+    mkdirSync(resolve(archiveDirectoryPath));
   }
 
   const fileName = 'user-agents'
   const archiveFilePath = `${archiveDirectoryPath}/${fileName}`
   const latestFilePath = `${distPath}/${fileName}`
 
-  writeFileSync(`${archiveFilePath}.json`, JSON.stringify(finalOutput, null, 2))
-  writeFileSync(`${latestFilePath}.json`, JSON.stringify(finalOutput, null, 2))
+  writeFileSync(resolve(`${archiveFilePath}.json`), JSON.stringify(finalOutput, null, 2))
+  writeFileSync(resolve(`${latestFilePath}.json`), JSON.stringify(finalOutput, null, 2))
 
   const ymlText = YAML.stringify(finalOutput)
-  writeFileSync(`${archiveFilePath}.yaml`, ymlText)
-  writeFileSync(`${latestFilePath}.yaml`, ymlText)
+  writeFileSync(resolve(`${archiveFilePath}.yaml`), ymlText)
+  writeFileSync(resolve(`${latestFilePath}.yaml`), ymlText)
 }
 
 const combineAndSortOrganizationUserAgents = (organization) => {
@@ -38,7 +38,7 @@ const combineAndSortOrganizationUserAgents = (organization) => {
   const output = []
 
   files.forEach((filename) => {
-    const contents = JSON.parse(readFileSync(filename, 'utf8'))
+    const contents = JSON.parse(readFileSync(resolve(filename), 'utf8'))
     output.push(contents)
   })
 
