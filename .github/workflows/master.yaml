@@ -19,7 +19,7 @@ jobs:
         ref: ${{ github.head_ref }} 
 
     - name: "Automated Version Bump"
-      uses: "phips28/gh-action-bump-version@master"
+      uses: "mitchdowney/gh-action-bump-version@master"
       with:
         tag-prefix: ''
       env:
