@@ -3,5 +3,5 @@
     "^Sample App/Web"
   ],
   "app": "Sample Web app",
-  "priority": 1
+  "priority": 2
 }

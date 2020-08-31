@@ -1,0 +1,7 @@
+{
+  "user_agents": [
+    "^Sample Feedparser"
+  ],
+  "app": "Sample Feedparser",
+  "priority": 1
+}
