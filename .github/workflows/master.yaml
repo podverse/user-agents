@@ -43,6 +43,7 @@ jobs:
         INPUT_JSONS: /dist/user-agents.json,/dist/archive/${{ steps.package-version.outputs.current-version }}/user-agents.json
 
     - name: Commit and push dist changes
+    - uses: actions/checkout@v2
       run: |
         git config --global user.name ${{ secrets.GITHUB_USER_NAME }}
         git config --global user.email ${{ secrets.GITHUB_USER_EMAIL }}
