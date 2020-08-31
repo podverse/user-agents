@@ -1,0 +1,15 @@
+{
+  "user_agents": [
+    "^Podverse/iOS Mobile App/"
+  ],
+  "app": "Podverse iOS Mobile App",
+  "device": "phone",
+  "os": "ios",
+  "examples": [
+    "Podverse/iOS Mobile App/Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/1234"
+  ],
+  "description": "Open source podcast catcher for iOS, with clip-sharing, playlists, device syncing and more.",
+  "info_url": "https://apps.apple.com/us/app/podverse/id1390888454",
+  "developer_notes": "The standard device user agent is concatenated to the end of the Podverse/iOS Mobile App/ user agent.",
+  "priority": 2
+}
