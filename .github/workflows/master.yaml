@@ -19,7 +19,7 @@ jobs:
         ref: ${{ github.head_ref }} 
 
     - name: "Automated Version Bump"
-      uses: "mitchdowney/gh-action-bump-version@master"
+      uses: "phips28/gh-action-bump-version@master"
       with:
         tag-prefix: ''
       env:
@@ -30,7 +30,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run combined-jsons
+    - run: npm run combine-jsons
 
     - name: Validate JSON
       uses: docker://orrosenblatt/validate-json-action:latest
