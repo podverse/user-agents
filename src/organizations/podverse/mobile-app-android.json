@@ -1,0 +1,12 @@
+{
+  "user_agents": [
+    "^Podverse/Android Mobile App/"
+  ],
+  "app": "Podverse Android Mobile App",
+  "device": "phone",
+  "os": "android",
+  "info_url": "https://play.google.com/store/apps/details?id=com.podverse&hl=en_US",
+  "description": "Open source podcast catcher for Android, with clip-sharing, playlists, device syncing and more.",
+  "developer_notes": "The standard device user agent is concatenated to the end of the Podverse/Android Mobile App/ user agent.",
+  "priority": 1
+}

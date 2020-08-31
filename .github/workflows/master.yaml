@@ -1,0 +1,53 @@
+name: master-branch
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }} 
+
+    - name: "Automated Version Bump"
+      uses: "mitchdowney/gh-action-bump-version@master"
+      with:
+        tag-prefix: ''
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run combine-jsons
+
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
+    - name: Validate JSON
+      uses: docker://orrosenblatt/validate-json-action:latest
+      env:
+        INPUT_SCHEMA: /src/schema.json
+        INPUT_JSONS: /dist/user-agents.json,/dist/archive/${{ steps.package-version.outputs.current-version }}/user-agents.json
+
+    - name: Commit and push dist changes
+      run: |
+        pwd
+        sudo chown -R $USER:$USER /home/runner/work/user-agents/user-agents
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add ./dist
+        git commit -m "Release version ${{ steps.package-version.outputs.current-version }}"
+        git push
